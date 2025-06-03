@@ -20,41 +20,45 @@ Never hardcode sensitive or environment-specific data. Use `.env` files for the 
 
 ### Folders
 
-- Use `kebab-case`  
+- Use `kebab-case`
   **Example:** `transaction-modal`, `wallet-hooks`
 
 ### Components
 
-- Use `kebab-case` for filenames  
+- Use `kebab-case` for filenames
+
   **Example:** `transaction-modal.tsx`, `wallet-connect-button.tsx`
+- Use `PascalCase` for component names
+
+  **Example:** `TransactionModal`, `WalletConnectButton`
 
 ### Hooks
 
-- Use `camelCase` prefixed with `use`  
+- Use `camelCase` prefixed with `use`
   **Example:** `useWallet()`, `useContractRead()`
-- Use `kebab-case` for hook filenames  
+- Use `kebab-case` for hook filenames
   **Example:** `read-contract.tsx`, `write-contract.tsx`
 
 ### Utils
 
-- Use `camelCase` for function names  
+- Use `camelCase` for function names
   **Example:** `parseAddress()`, `formatEther()`
-- Use `kebab-case` for file names  
+- Use `kebab-case` for file names
   **Example:** `parse-address.ts`, `parse-ether.ts`
 
 ### Types & Interfaces
 
-- Use `PascalCase`  
+- Use `PascalCase`
   **Example:** `User`, `TransactionStatus`
 
 ### Constants
 
-- Use `UPPER_SNAKE_CASE`  
+- Use `UPPER_SNAKE_CASE`
   **Example:** `MAX_GAS_LIMIT`, `CHAIN_ID_MAINNET`
 
 ### ABI Files
 
-- Use `kebab-case` with `.json` extension  
+- Use `kebab-case` with `.json` extension
   **Example:** `erc20-abi.json`, `vault-abi.json`
 
 ---
@@ -131,28 +135,26 @@ type MyType = z.infer<typeof mySchema>;
 This architecture uses a **modular, scalable structure** inspired by feature-driven development. It separates global and feature-specific concerns, enhancing maintainability, reusability, and collaboration—ideal for Web3 or modern frontend applications.
 
 ```yaml
-src/
-│
-├── app/                  # Application entry (providers, layout)
-├── assets/               # Static files (images, fonts)
-├── components/           # Shared components (buttons, modals)
-├── hooks/                # Shared custom hooks
-├── config/               # wagmi/viem config, env
-├── lib/                  # Reusable libraries
-├── features/             # Feature-based modules
-│   ├── api/              # Feature-specific API
-│   ├── assets/           # Feature-specific images/icons
-│   ├── components/       # Feature-specific components
-│   ├── hooks/            # Feature-specific hooks
-│   ├── stores/           # Feature-specific state
-│   ├── types/            # Feature-specific types
-│   └── utils/            # Feature-specific utilities
-├── utils/                # Shared utilities (unit conversions, etc.)
-├── layout/               # Page layouts
-├── stores/               # Global state (Zustand)
-├── types/                # Shared types/interfaces
-├── testing/              # Test utilities and mocks
-└── themes/               # Shadcn UI themes
+app/
+├── (routes)/                     # App routes (could be file-based routing depending on framework like Next.js or similar)
+├── core/                         # Core application logic, configurations, and environment-specific setup
+│   ├── api/                      # Centralized API functions or services (e.g., HTTP clients, request handlers)
+│   ├── config/                   # Application-wide configuration files (e.g., themes, feature toggles)
+│   ├── constants/                # Global constants (e.g., enums, static values used across the app)
+│   ├── layout/                   # Global layout components (e.g., Header, Footer, MainLayout)
+│   └── env                       # Type Safe Enviorments (e.g. custom made with Zod, t3-env)
+├── features/                     # Feature-specific modules, each feature encapsulated in its own folder
+│   └── <feature-name>/           # Replace with actual feature name (e.g., auth, dashboard, profile)
+│       ├── components/           # UI components specific to this feature
+│       ├── utils/                # Utility functions specific to this feature
+│       └── index                 # Entry point to export feature modules (e.g., component, services)
+└── shared/                       # Shared resources reused across multiple features
+    ├── assets/                   # Static files (e.g images, fonts)
+    ├── components/               # Reusable UI components (e.g., Button, Modal, Card)
+    ├── hooks/                    # Reusable custom hooks (e.g., useAuth, useMediaQuery)
+    ├── stores/                   # Shared global state management (e.g., Zustand stores)
+    ├── types/                    # Shared TypeScript types and interfaces
+    └── utils/                    # Shared utility functions (e.g., formatting, date helpers)
 ```
 
 ## 🧠 9. UX Components
